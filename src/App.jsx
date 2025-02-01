@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import LoginPage from "./Login/LoginPage"
 
 function App() {
   return (
-    <div className='text-3xl bg-blue-500'>
-      ewdwada
-    </div>
+    <Router>
+      <Routes>
+        <Route 
+          path="/"
+          element={<LoginPage/>}
+        />
+        <Route 
+          path="/signup"
+          element
+        />
+      </Routes>
+    </Router>
   )
 }
 
