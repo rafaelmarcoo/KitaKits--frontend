@@ -1,6 +1,38 @@
 import logo from "../../assets/logo.png";
+import { useState } from "react";
 
 const SignupForm = (props) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const handlePassword = (e) => {
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    if(formData.password != newConfirmPassword) {
+      setError("Passwords do not match!");
+    } else {
+      setError("");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    if (name === "password" && confirmPassword && value !== confirmPassword) {
+      setError("Passwords do not match!");
+    } else if (name === "password" && confirmPassword && value === confirmPassword) {
+      setError("");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center bg-amber-50 border border-orange-300 rounded-lg p-10">
       <img 
@@ -15,7 +47,10 @@ const SignupForm = (props) => {
         <form className="flex flex-col min-w-sm">
           <label className="text-2xl py-2">Email:</label>
           <input
+            name="email"
             type="email"
+            value={formData.email}
+            onChange={handleChange}
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           {/* <label className="text-2xl py-2">First Name:</label>
@@ -30,19 +65,29 @@ const SignupForm = (props) => {
           /> */}
           <label className="text-2xl py-2">Username:</label>
           <input
+            name="username"
             type="text"
+            value={formData.username}
+            onChange={handleChange}
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           <label className="text-2xl py-2">Password:</label>
           <input
+            name="password"
             type="password"
+            value={formData.password}
+            onChange={handleChange}
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           <label className="text-2xl py-2">Confirm Password:</label>
           <input
+            name="confirmPassword"
             type="password"
+            value={confirmPassword}
+            onChange={handlePassword}
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <button
             type="submit"
             className="bg-amber-300 p-2 mt-10 rounded-lg text-2xl hover:scale-105 transition-transform cursor-pointer"
