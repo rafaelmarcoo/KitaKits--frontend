@@ -18,7 +18,7 @@ const SignupForm = (props) => {
             type="email"
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
-          <label className="text-2xl py-2">First Name:</label>
+          {/* <label className="text-2xl py-2">First Name:</label>
           <input
             type="text"
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
@@ -27,13 +27,18 @@ const SignupForm = (props) => {
           <input
             type="text"
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
-          />
+          /> */}
           <label className="text-2xl py-2">Username:</label>
           <input
             type="text"
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           <label className="text-2xl py-2">Password:</label>
+          <input
+            type="password"
+            className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
+          />
+          <label className="text-2xl py-2">Confirm Password:</label>
           <input
             type="password"
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
