@@ -1,5 +1,6 @@
 import logo from "../../assets/logo.png";
 import { useState } from "react";
+import axios from "axios";
 
 const SignupForm = (props) => {
   const [formData, setFormData] = useState({
@@ -33,6 +34,23 @@ const SignupForm = (props) => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:5144/api/user", formData);
+      
+      if(response.status === 200) {
+        alert("You have successfully registed! Welcome to KitaKits!");
+        props.toggleComponent("login");
+      } else {
+        alert("There was an error when registering!");
+      }
+    } catch(error) {
+      alert("Error: " + error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center bg-amber-50 border border-orange-300 rounded-lg p-10">
       <img 
@@ -44,13 +62,17 @@ const SignupForm = (props) => {
       </h1>
       <div className="space-y-6 p-5 mt-8">
         <h2 className="text-2xl text-center font-medium">Join a vibrant, growing community!</h2>
-        <form className="flex flex-col min-w-sm">
+        <form 
+          className="flex flex-col min-w-sm"
+          onSubmit={handleSubmit}
+        >
           <label className="text-2xl py-2">Email:</label>
           <input
             name="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
+            required
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           {/* <label className="text-2xl py-2">First Name:</label>
@@ -69,6 +91,7 @@ const SignupForm = (props) => {
             type="text"
             value={formData.username}
             onChange={handleChange}
+            required
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           <label className="text-2xl py-2">Password:</label>
@@ -77,6 +100,7 @@ const SignupForm = (props) => {
             type="password"
             value={formData.password}
             onChange={handleChange}
+            required
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           <label className="text-2xl py-2">Confirm Password:</label>
@@ -85,6 +109,7 @@ const SignupForm = (props) => {
             type="password"
             value={confirmPassword}
             onChange={handlePassword}
+            required
             className="border border-orange-300 rounded-lg p-2 focus:border-3 focus:outline-none focus:outline-offset-4 transition-all"
           />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
